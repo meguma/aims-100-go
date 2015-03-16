@@ -8,7 +8,9 @@ import (
 func IndexHandler(w http.ResponseWriter,
 	r *http.Request) {
 
-	fmt.Fprint(w, "hello world")
+	name := r.URL.Query().Get("name")
+
+	fmt.Fprint(w, "<h1>hello "+name+" !</h1>")
 }
 
 func main() {
