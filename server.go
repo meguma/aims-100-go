@@ -1,16 +1,25 @@
 package main
 
 import (
-	"fmt"
+	_ "fmt"
+	"html/template"
 	"net/http"
 )
+
+type Person struct {
+	Name string
+}
+
+var t = template.Must(template.ParseFiles("index.html"))
 
 func IndexHandler(w http.ResponseWriter,
 	r *http.Request) {
 
-	name := r.URL.Query().Get("name")
+	person := Person{
+		Name: r.URL.Query().Get("name"),
+	}
 
-	fmt.Fprint(w, "<h1>hello "+name+" !</h1>")
+	t.Execute(w, person)
 }
 
 func main() {
