@@ -16,6 +16,10 @@ type Aim struct {
 	Content string
 }
 
+type Aims struct {
+	Aims []Aim
+}
+
 func ApiHandler(w http.ResponseWriter,
 	r *http.Request) {
 
@@ -29,7 +33,11 @@ func ApiHandler(w http.ResponseWriter,
 			Content: "test",
 		}
 
-		j, err := json.Marshal(aim)
+		aims := Aims{}
+
+		aims.Aims = append(aims.Aims, aim)
+
+		j, err := json.Marshal(aims.Aims)
 		if err != nil {
 			log.Fatal(err)
 		}
